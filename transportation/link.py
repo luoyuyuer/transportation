@@ -1,39 +1,39 @@
 # 数据连接
 from pymysql import Connection, cursors
-import sqlalchemy
-import time_translation
-
+# import sqlalchemy
+# import time_translation
+import key
 conn = Connection(
-    host='localhost',
-    port=3306,
-    user='root',
-    password='584097649',
-    db='translation_test'
+        host=key.host,
+        port=key.port,
+        user=key.user,
+        password=key.password,
+        db=key.db,
 )
 
 cursor = conn.cursor(cursors.DictCursor)  # 将导出的数据库数据改为列表-字典格式
+# cursor = conn.cursor()
 cursor.execute('select * from sjcj_t_clxx_ls')  # 选择sjcj_t_clxx_ls文件
-cursor.execute("delete from sjcj_t_clxx_ls where HPHM = '车牌'")  # 删除所有未识别出来的车牌
+# cursor.execute("delete from sjcj_t_clxx_ls where HPHM = '车牌'")  # 删除所有未识别出来的车牌
 date_list = cursor.fetchall()  # 将所有数据存于date_list中
-# sql语句，删除无法识别的车牌号坏点 sql = "delete from sjcj_t_cl where HPHM = '车牌'"
+print(date_list)
 
-# sql语句，选择出2019年1月1日的车辆 "SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019/1/1%'"
-cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019/1/1%'")  # 对全部数据进行划分，分为1号监测和2号监测
-# cursor.execute("delete from sjcj_t_clxx_ls where HPHM = '车牌'")
+# sql语句，选择出2019年1月1日的车辆 "SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-01%'"
+cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-01%'")  # 对全部数据进行划分，分为1号监测和2号监测
 date_1_list = cursor.fetchall()  # 将1号数据存于date_1_list中
-time_translation.time_change(date_1_list)   # 对获取的时间字符串数据进行格式更改
+# time_translation.time_change(date_1_list)   # 对获取的时间字符串数据进行格式更改
 
-# sql语句，选择出2019年1月2日的车辆 "SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019/1/2%'"
-cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019/1/2%'")  # 选择2号数据
-# cursor.execute("delete from sjcj_t_clxx_ls where HPHM = '车牌'")
+# sql语句，选择出2019年1月2日的车辆 "SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-02%'"
+cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-02%'")  # 选择2号数据
 date_2_list = cursor.fetchall()
-time_translation.time_change(date_2_list)   # 对获取的时间字符串数据进行格式更改
 
-# 提交更改
-conn.commit()
+# 关闭游标
+cursor.close()
+
+# 数据库关闭
+conn.close()
 
 
-conn.commit()
 if __name__ == '__main__':
     print(conn.get_server_info())  # 获取安装的mysql的版本号，验证连接正确性
     print(date_1_list, type(date_1_list))  # 展示1月1日数据，以及数据类型

@@ -88,7 +88,7 @@ def car_count(date_set, date_list, number):
                         list_1_dict[f'list_{count}'][0]['CDBH'] == 1 or 3 or 5 or 6 or 10 or 11) or (
                         list_1_dict[f'list_{count}'][0]['SSID'] == 'HK-92') and (
                         list_1_dict[f'list_{count}'][0]['CDBH'] == 6 or 8 or 9):
-              +      list_1_dict[f'list_{count}'] = []
+                    list_1_dict[f'list_{count}'] = []
                     count -= 1
             elif number == 2:
                 if (list_2_dict[f'list_{count}'][0]['SSID'] == 'HK-93') and (

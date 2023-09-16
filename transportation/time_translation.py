@@ -16,10 +16,10 @@ def create_time_dict(number):
 
 
 # 将获取的数据中的时间字符串解析为日期时间对象
-def time_change(date_list):
-    # 遍历字典列表，将时间字符串解析为日期时间对象
-    for entry in date_list:
-        entry['JGSJ'] = datetime.strptime(entry['JGSJ'], '%Y/%m/%d %H:%M:%S')
+# def time_change(date_list):
+#     # 遍历字典列表，将时间字符串解析为日期时间对象
+#     for entry in date_list:
+#         entry['JGSJ'] = datetime.strptime(entry['JGSJ'], '%Y/%m/%d %H:%M:%S')
 
 
 # 计算每辆车两个传感器之间的时间差值，并把超过5分钟的数值去除
@@ -38,6 +38,8 @@ def calculate_passing_time(list_dict):
         # 将key和value进行匹配，并在字典之前加上车牌号
         time_dict.append([list_dict[f"list_{count_2}"][0]['HPHM'], dict(zip(keys, time_difference))])
     return time_dict
+
+
 # origin
-#
-# 柱状图、折线图、散点图
+# #
+# # 柱状图、折线图、散点图
