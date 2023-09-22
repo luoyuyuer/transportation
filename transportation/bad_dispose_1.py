@@ -1,5 +1,7 @@
 import link
 import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 
 num = 0  # 用于统计车辆被监测数据次数
 count = 1
@@ -87,14 +89,14 @@ def car_count(date_set, date_list, number):
                 if (list_1_dict[f'list_{count}'][0]['SSID'] == 'HK-93') and (
                         list_1_dict[f'list_{count}'][0]['CDBH'] == 1 or 3 or 5 or 6 or 10 or 11) or (
                         list_1_dict[f'list_{count}'][0]['SSID'] == 'HK-92') and (
-                        list_1_dict[f'list_{count}'][0]['CDBH'] == 6 or 8 or 9):
+                        list_1_dict[f'list_{count}'][0]['CDBH'] == 6 or 8):
                     list_1_dict[f'list_{count}'] = []
                     count -= 1
             elif number == 2:
                 if (list_2_dict[f'list_{count}'][0]['SSID'] == 'HK-93') and (
                         list_2_dict[f'list_{count}'][0]['CDBH'] == 1 or 3 or 5 or 6 or 10 or 11) or (
-                        list_1_dict[f'list_{count}'][0]['SSID'] == 'HK-92') and (
-                        list_2_dict[f'list_{count}'][0]['CDBH'] == 6 or 8 or 9):
+                        list_2_dict[f'list_{count}'][0]['SSID'] == 'HK-92') and (
+                        list_2_dict[f'list_{count}'][0]['CDBH'] == 6 or 8):
                     list_2_dict[f'list_{count}'] = []
                     count -= 1
         count += 1
@@ -107,16 +109,16 @@ def car_count(date_set, date_list, number):
     if number == 1:
         for i in range(1, (max(car1_count_list) + 1)):
             data1_value.insert(i - 1, car1_count_list.count(i))
-        for i in range(1, len(list_1_dict) + 1):
-            list_1_dict[f'list_{i}'] = sorted(list_1_dict[f'list_{i}'], key=lambda x: x['JGSJ'], reverse=False)
+        # for i in range(1, len(list_1_dict) + 1):
+        #     list_1_dict[f'list_{i}'] = sorted(list_1_dict[f'list_{i}'], key=lambda x: x['JGSJ'], reverse=False)
         return list_1_dict, car1_count_list, data1_value
     if number == 2:
         for i in range(1, (max(car2_count_list) + 1)):
             data2_value.append(car2_count_list.count(i))
         # 对时间进行升序排列
-        for i in range(1, (len(date_2_set) + 1)):
-            list_2_dict[f'list_{i}'] = sorted(list_2_dict[f'list_{i}'], key=lambda x: x['JGSJ'], reverse=False)
-        print(list_2_dict)
+        # for i in range(1, (len(date_2_set) + 1)):
+        #     list_2_dict[f'list_{i}'] = sorted(list_2_dict[f'list_{i}'], key=lambda x: x['JGSJ'], reverse=False)
+        # print(list_2_dict)
         return list_2_dict, car2_count_list, data2_value
 
 

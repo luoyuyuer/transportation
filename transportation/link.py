@@ -3,6 +3,7 @@ from pymysql import Connection, cursors
 # import sqlalchemy
 # import time_translation
 import key
+
 conn = Connection(
         host=key.host,
         port=key.port,
@@ -13,18 +14,17 @@ conn = Connection(
 
 cursor = conn.cursor(cursors.DictCursor)  # 将导出的数据库数据改为列表-字典格式
 # cursor = conn.cursor()
-cursor.execute('select * from sjcj_t_clxx_ls')  # 选择sjcj_t_clxx_ls文件
+cursor.execute('select * from sjcj_t_clxx_ls order by HPHM asc, JGSJ asc')  # 选择sjcj_t_clxx_ls文件
 # cursor.execute("delete from sjcj_t_clxx_ls where HPHM = '车牌'")  # 删除所有未识别出来的车牌
 date_list = cursor.fetchall()  # 将所有数据存于date_list中
-print(date_list)
 
 # sql语句，选择出2019年1月1日的车辆 "SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-01%'"
-cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-01%'")  # 对全部数据进行划分，分为1号监测和2号监测
+cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-01%' order by HPHM asc, JGSJ asc")  # 对全部数据进行划分，分为1号监测和2号监测
 date_1_list = cursor.fetchall()  # 将1号数据存于date_1_list中
 # time_translation.time_change(date_1_list)   # 对获取的时间字符串数据进行格式更改
 
 # sql语句，选择出2019年1月2日的车辆 "SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-02%'"
-cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-02%'")  # 选择2号数据
+cursor.execute("SELECT * FROM sjcj_t_clxx_ls WHERE JGSJ LIKE '%2019-01-02%' order by HPHM asc, JGSJ asc")  # 选择2号数据
 date_2_list = cursor.fetchall()
 
 # 关闭游标

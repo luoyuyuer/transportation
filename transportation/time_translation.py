@@ -1,6 +1,6 @@
 import pandas
 from datetime import datetime
-import bad_dispose
+# import bad_dispose
 
 time_difference = []  # 存储两传感器之间的差值
 keys = []  # 存储两传感器的标号，用于做获取的时间差值的key
