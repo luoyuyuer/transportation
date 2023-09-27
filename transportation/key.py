@@ -15,8 +15,7 @@ db = config.get('Credentials', 'db')
 
 if __name__ == '__main__':
     print(f'Username: {host}')
-    print(f'Password: {port}',type(port))
+    print(f'Password: {port}', type(port))
     print(f'Username: {user}')
     print(f'Password: {password}')
     print(f'Username: {db}')
-
